@@ -2,7 +2,7 @@ import sys
 import openai
 
 # Configuración de la API de OpenAI
-openai.api_key = "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"
+openai.api_key = "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"
 
 # Buffer para almacenar consultas no nulas
 query_buffer = []
@@ -28,6 +28,9 @@ def chat_with_gpt():
 
         # Solicitud al API de ChatGPT
         response = openai.ChatCompletion.create(**params)
+
+        # Agregar la respuesta al buffer para ser reenviada en las próximas consultas
+        query_buffer.append(response.choices[0].message.content)
 
         # Impresión de la respuesta obtenida
         print("chatGPT: " + response.choices[0].message.content)
