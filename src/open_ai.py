@@ -7,10 +7,13 @@ openai.api_key = "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"
 # Buffer para almacenar consultas no nulas
 query_buffer = []
 
-def chat_with_gpt(user_query):
+def chat_with_gpt():
     try:
+        # Obtener la última consulta del buffer
+        last_query = query_buffer[-1]
+
         # Formato de mensajes para el cliente de chat
-        messages = [{"role": "user", "content": "You: " + user_query}]
+        messages = [{"role": "user", "content": "You: " + last_query}]
 
         # Parámetros de la solicitud
         params = {
@@ -25,9 +28,6 @@ def chat_with_gpt(user_query):
 
         # Solicitud al API de ChatGPT
         response = openai.ChatCompletion.create(**params)
-
-        # Agregar la consulta al buffer
-        query_buffer.append(user_query)
 
         # Impresión de la respuesta obtenida
         print("chatGPT: " + response.choices[0].message.content)
@@ -63,8 +63,10 @@ def main():
             # Verificar si la consulta tiene texto
             if user_query.strip():
                 print("Consulta del usuario:", user_query)
+                # Agregar la consulta al buffer
+                query_buffer.append(user_query)
                 # Llamar a la función para chatear con GPT
-                chat_with_gpt(user_query)
+                chat_with_gpt()
             else:
                 print("La consulta está vacía. Por favor, ingrese una consulta válida.")
     except Exception as e:
