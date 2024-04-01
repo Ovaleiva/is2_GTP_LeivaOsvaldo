@@ -1,7 +1,8 @@
+import sys
 import openai
 
 # Configuración de la API de OpenAI
-openai.api_key = "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"
+openai.api_key = "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"
 
 def chat_with_gpt(user_query):
     try:
@@ -29,11 +30,22 @@ def chat_with_gpt(user_query):
 
 # Función principal del programa
 def main():
+    convers_mode = False
+
+    # Verificar si se proporciona el argumento --convers
+    if "--convers" in sys.argv:
+        convers_mode = True
+
+    if convers_mode:
+        print("Modo de conversación activado. Puedes chatear con ChatGPT libremente.")
+    else:
+        print("Modo de conversación estándar. Ingrese su consulta.")
+
     try:
         while True:
             # Solicitar entrada al usuario
             try:
-                user_query = input("Ingrese su consulta (o 'exit' para salir): ")
+                user_query = input("You: ") if convers_mode else input("Ingrese su consulta (o 'exit' para salir): ")
             except KeyboardInterrupt:
                 print("\nOperación interrumpida por el usuario.")
                 break
