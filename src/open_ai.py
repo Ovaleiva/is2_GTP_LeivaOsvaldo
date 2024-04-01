@@ -1,7 +1,7 @@
 import openai
 
 # Configuración de la API de OpenAI
-openai.api_key = ""
+openai.api_key = "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"
 
 def chat_with_gpt(user_query):
     try:
